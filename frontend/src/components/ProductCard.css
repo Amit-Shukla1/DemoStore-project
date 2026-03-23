@@ -111,6 +111,70 @@
   cursor: not-allowed;
 }
 
+/* Quantity Selector */
+.quantity-selector {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+  background-color: #f3f4f6;
+  border-radius: 8px;
+  padding: 0.25rem;
+}
+
+.qty-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 6px;
+}
+
+.qty-btn.decrement,
+.qty-btn.increment {
+  width: 2rem;
+  height: 2rem;
+  color: #2563eb;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.qty-btn.decrement:hover:not(:disabled),
+.qty-btn.increment:hover:not(:disabled) {
+  background-color: #2563eb;
+  color: white;
+  border-color: #2563eb;
+  transform: scale(1.05);
+}
+
+.qty-btn.decrement:active:not(:disabled),
+.qty-btn.increment:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.qty-btn.decrement:disabled,
+.qty-btn.increment:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.qty-btn.quantity-display {
+  flex: 1;
+  color: #111827;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.75rem;
+  min-width: 3rem;
+  cursor: default;
+  font-weight: 700;
+}
+
 .success-message {
   background-color: #10b981;
   color: white;
@@ -141,5 +205,14 @@
 
   .add-to-cart-btn {
     width: 100%;
+  }
+
+  .quantity-selector {
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .qty-btn.quantity-display {
+    flex: 1;
   }
 }

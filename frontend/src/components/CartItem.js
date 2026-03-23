@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useCart } from '../context/CartContext';
-import './CartItem.css';
+import { useState } from "react";
+import { useCart } from "../context/CartContext";
+import "./CartItem.css";
 
 const CartItem = ({ item }) => {
   const { updateQuantity, removeFromCart } = useCart();
@@ -19,7 +19,7 @@ const CartItem = ({ item }) => {
   };
 
   const handleRemove = async () => {
-    if (window.confirm('Remove this item from cart?')) {
+    if (window.confirm("Remove this item from cart?")) {
       await removeFromCart(product._id);
     }
   };
@@ -28,11 +28,7 @@ const CartItem = ({ item }) => {
 
   return (
     <div className="cart-item">
-      <img
-        src={product.image}
-        alt={product.name}
-        className="cart-item-image"
-      />
+      <img src={product.image} alt={product.name} className="cart-item-image" />
 
       <div className="cart-item-details">
         <h3 className="cart-item-name">{product.name}</h3>
