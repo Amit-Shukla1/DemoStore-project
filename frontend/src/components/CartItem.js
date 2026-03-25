@@ -1,27 +1,27 @@
 import { useState } from "react";
 import { useCart } from "../context/CartContext";
+import { useToast } from "../context/ToastContext";
 import "./CartItem.css";
 
 const CartItem = ({ item }) => {
   const { updateQuantity, removeFromCart } = useCart();
+  const { showToast } = useToast();
   const [quantity, setQuantity] = useState(item.quantity);
   const product = item.productId;
 
   const handleQuantityChange = async (newQuantity) => {
     if (newQuantity < 1) return;
     if (newQuantity > product.stock) {
-      alert(`Only ${product.stock} items available in stock`);
+      showToast(`Only ${product.stock} items available in stock`, "error");
       return;
     }
-
     setQuantity(newQuantity);
     await updateQuantity(product._id, newQuantity);
   };
 
   const handleRemove = async () => {
-    if (window.confirm("Remove this item from cart?")) {
-      await removeFromCart(product._id);
-    }
+    await removeFromCart(product._id);
+    showToast(`${product.name} removed from cart`, "info");
   };
 
   const subtotal = (product.price * quantity).toFixed(2);

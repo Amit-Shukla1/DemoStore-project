@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useCart } from "../context/CartContext";
+import { useToast } from "../context/ToastContext";
 import "./ProductCard.css";
 
 const ProductCard = ({ product }) => {
   const { addToCart, updateQuantity, removeFromCart, getProductQuantity } =
     useCart();
+  const { showToast } = useToast();
   const [isAdding, setIsAdding] = useState(false);
-  const [showMessage, setShowMessage] = useState(false);
 
   const quantity = getProductQuantity(product._id);
 
@@ -14,11 +15,8 @@ const ProductCard = ({ product }) => {
     setIsAdding(true);
     const success = await addToCart(product._id, 1);
     setIsAdding(false);
-
-    if (success) {
-      setShowMessage(true);
-      setTimeout(() => setShowMessage(false), 2000);
-    }
+    if (success) showToast(`${product.name} added to cart!`);
+    else showToast("Failed to add to cart", "error");
   };
 
   const handleIncrement = async () => {
@@ -94,7 +92,6 @@ const ProductCard = ({ product }) => {
           )}
         </div>
 
-        {showMessage && <div className="success-message">Added to cart!</div>}
       </div>
     </div>
   );

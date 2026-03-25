@@ -1,18 +1,19 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
+import { useToast } from "../context/ToastContext";
 import "./Header.css";
 
 const Header = () => {
   const { getCartCount, clearCart } = useCart();
   const { user, logout, isAuthenticated } = useAuth();
+  const { showToast } = useToast();
   const cartCount = getCartCount();
 
   const handleLogout = () => {
-    if (window.confirm("Are you sure you want to logout?")) {
-      clearCart(); // Clear cart from UI and localStorage
-      logout(); // Clear authentication data
-    }
+    clearCart();
+    logout();
+    showToast("Logged out successfully", "info");
   };
 
   return (
@@ -23,7 +24,7 @@ const Header = () => {
         </Link>
 
         <nav className="nav">
-          <Link to="/" className="nav-link">
+          <Link to="/" className="nav-link products-link">
             Products
           </Link>
           <Link to="/cart" className="nav-link cart-link">
